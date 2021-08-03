@@ -1,0 +1,29 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    
+    "react-hot-loader/babel",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "extensions": [".ts", ".tsx"],
+        "root": ["."],
+        "alias": {
+          "core": "./src/core",
+          "pages": "./src/pages",
+          "features": "./src/features"
+        }
+      }
+    ]
+  ]
+}

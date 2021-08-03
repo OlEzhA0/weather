@@ -1,0 +1,61 @@
+{
+  "env": { "browser": true, "es6": true, "jest": true },
+  "parser": "babel-eslint",
+
+  "extends": [
+    "plugin:prettier/recommended"
+  ],
+
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "excludedFiles":["*.js"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["import", "react-hooks"],
+      "extends": [
+        "prettier",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
+      ],
+      "rules": {
+        "react/prop-types": 0,
+        "@typescript-eslint/no-var-requires": 0
+      }
+    }
+  ],
+
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "extensions": [".ts", ".tsx"]
+      },
+      "node": {
+        "paths": "./src"
+      }
+    }
+  },
+
+  "rules": {
+    "newline-before-return": "error",
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["external", "builtin"],
+          "internal",
+          ["sibling", "parent", "index"]
+        ],
+        "newlines-between": "always",
+        "exclude": [".js"]
+      }
+    ]
+  }
+}
