@@ -9,7 +9,9 @@ const cookieParser = require('cookie-parser')
 
 const port = process.env.PORT || 3005
 
-const config = require('../webpack.config')
+const devConfig = require('../webpack.config')
+const prodConfig = require('../webpack.prod.config')
+const config = process.env.NODE_ENV === 'development' ? devConfig : prodConfig
 const compiler = webpack(config)
 const sequelize = require('./db_init')
 const router = require('./routes')
@@ -34,11 +36,19 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use('/api', router)
 
-app.get('*', (req, res) => {
-  const resolvedPath = path.resolve(__dirname, '../dist', 'index.html')
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('../dist'));
 
-  res.sendFile(resolvedPath)
-})
+  app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../', 'build', 'index.html'));
+  });
+} else {
+  app.get('*', (req, res) => {
+    const resolvedPath = path.resolve(__dirname, '../build', 'index.html')
+    
+    res.sendFile(resolvedPath)
+  })
+}
 
 app.use(errorHandler)
 
@@ -48,7 +58,11 @@ app.use(errorHandler)
     await sequelize.authenticate()
     await sequelize.sync()
 
-    app.listen(port, () => console.log(`Listening on port ${port}`))
+
+    app.listen(port, () => {
+      console.log(`> Listening on port: ${port}`)
+      console.log(`> Environment: ${process.env.NODE_ENV}`)
+    })
   } catch (err) {
     console.log(err)
   }

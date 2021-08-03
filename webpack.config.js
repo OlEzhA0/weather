@@ -15,7 +15,7 @@ const stylesLoaders = (additional) => {
 
 module.exports =
   {
-    mode: process.env.NODE_ENV,
+    mode: 'development',
     output: {
       publicPath: "/",
       hotUpdateChunkFilename: '.hot/hot-update.js',
