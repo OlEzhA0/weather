@@ -6,7 +6,7 @@ const { Token } = require('../models')
 const generateJWT = (payload, type) => {
   if (type === 'access') {
     return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15m',
+      expiresIn: '15s',
     })
   }
 

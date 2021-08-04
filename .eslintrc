@@ -53,8 +53,7 @@
           "internal",
           ["sibling", "parent", "index"]
         ],
-        "newlines-between": "always",
-        "exclude": [".js"]
+        "newlines-between": "always"
       }
     ]
   }

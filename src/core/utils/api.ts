@@ -10,7 +10,13 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${window.localStorage.getItem(TOKEN)}`
+  const token = window.localStorage.getItem(TOKEN)
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  } else {
+    window.dispatchEvent(new Event('storage'))
+  }
 
   return config
 })
@@ -31,9 +37,12 @@ api.interceptors.response.use(
 
         localStorage.setItem(TOKEN, data.accessToken)
 
-        await api.request(err.config)
+        return api.request(err.config)
       } catch (e) {
-        console.log('Unauthorized')
+        window.localStorage.removeItem(TOKEN)
+        window.dispatchEvent(new Event('storage'))
+
+        throw new Error('Unauthorized')
       }
     }
   }

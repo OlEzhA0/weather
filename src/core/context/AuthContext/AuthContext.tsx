@@ -39,11 +39,17 @@ export const AuthProvider: FC = ({ children }) => {
     }
   }
 
+  window.onstorage = () => {
+    if (!window.localStorage.getItem(TOKEN)) {
+      setUser(null)
+    }
+  }
+
   useEffect(() => {
     const checkAuth = async () => {
       setLoading(true)
 
-      if (window.localStorage.getItem('token')) {
+      if (window.localStorage.getItem(TOKEN)) {
         try {
           const { data } = await api.get<UserResponse>('/auth/refresh')
 
