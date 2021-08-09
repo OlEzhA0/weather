@@ -24,7 +24,7 @@ module.exports =
     entry: {
       main: [
         'react-hot-loader/patch',
-        path.join(__dirname, './src/index.tsx'),
+        path.join(__dirname, './src/client/index.tsx'),
         'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
       ],
     },
@@ -63,14 +63,14 @@ module.exports =
     resolve: {
       alias: {
         root: __dirname,
-        src: path.resolve(__dirname, 'src'),
+        src: path.resolve(__dirname, 'src', 'client'),
       },
       extensions: [".tsx", ".ts", ".js"],
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: "./dist/index.html",
-        favicon: "./src/images/cloudy.svg"
+        favicon: "./src/client/images/cloudy.svg"
       }),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.ProvidePlugin({

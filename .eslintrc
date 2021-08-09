@@ -23,7 +23,18 @@
       ],
       "rules": {
         "react/prop-types": 0,
-        "@typescript-eslint/no-var-requires": 0
+        "@typescript-eslint/no-var-requires": 0,
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              ["external", "builtin"],
+              "internal",
+              ["sibling", "parent", "index"]
+            ],
+            "newlines-between": "always"
+          }
+        ]
       }
     }
   ],
@@ -44,17 +55,6 @@
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          ["external", "builtin"],
-          "internal",
-          ["sibling", "parent", "index"]
-        ],
-        "newlines-between": "always"
-      }
-    ]
+    "react-hooks/exhaustive-deps": "warn"
   }
 }

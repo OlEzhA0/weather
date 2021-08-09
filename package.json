@@ -5,9 +5,9 @@
   "main": "index.js",
   "homepage": ".",
   "scripts": {
-    "dev": "nodemon ./server/app.js",
+    "dev": "nodemon ./src/server/app.js",
     "build": "webpack",
-    "start": "node ./server/app.js"
+    "start": "node ./src/server/app.js"
   },
   "proxy": "http://localhost:3001",
   "author": "oleg",

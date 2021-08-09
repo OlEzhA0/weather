@@ -18,11 +18,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "baseUrl": "./src",
+    "baseUrl": "./src/client",
   },
-  "include": ["src"],
+  "include": ["src", "client"],
   "exclude": [
-    "server",
     "node_modules",
   ]
 }

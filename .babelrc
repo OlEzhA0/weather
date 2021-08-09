@@ -18,9 +18,7 @@
         "extensions": [".ts", ".tsx"],
         "root": ["."],
         "alias": {
-          "core": "./src/core",
-          "pages": "./src/pages",
-          "features": "./src/features"
+          "client": "./src/client"
         }
       }
     ]
