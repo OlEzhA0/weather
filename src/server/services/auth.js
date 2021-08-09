@@ -11,14 +11,14 @@ const {
 } = require('./tokens')
 
 class AuthService {
-  async generateTokensAndSave(user, cities) {
+  async generateTokensAndSave(user) {
     try {
-      const payload = { id: user.id, email: user.email, cities }
+      const payload = { id: user.id, email: user.email }
       const tokens = generateTokens(payload)
 
       await saveToken(payload.id, tokens.refreshToken)
 
-      return { ...tokens, user: payload }
+      return { ...tokens, user: { ...payload, cities } }
     } catch (err) {
       throw APIError.server('Something went wrong')
     }
