@@ -53,10 +53,14 @@ app.use(errorHandler)
     await sequelize.sync()
 
     app.listen(port, () => {
-      console.log(`> Listening on port: ${port}`)
-      console.log(`> Environment: ${process.env.NODE_ENV}`)
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(`> Listening on port: ${port}`)
+        console.log(`> Environment: ${process.env.NODE_ENV}`)
+      }
     })
   } catch (err) {
     console.log(err)
   }
 })()
+
+module.exports = app
