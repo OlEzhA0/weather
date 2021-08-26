@@ -11,7 +11,7 @@ const {
 } = require('./tokens')
 
 class AuthService {
-  async generateTokensAndSave(user) {
+  async generateTokensAndSave(user, cities) {
     try {
       const payload = { id: user.id, email: user.email }
       const tokens = generateTokens(payload)
