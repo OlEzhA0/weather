@@ -74,7 +74,6 @@ class Auth {
     }
 
     const user = await AuthService.refresh(refreshToken)
-
     res.cookie('refreshToken', user.refreshToken, {
       maxAge: 1 * 24 * 60 * 60 * 1e3,
       httpOnly: true,

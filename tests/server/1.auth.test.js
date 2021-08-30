@@ -17,7 +17,6 @@ chai.use(chaiHttp)
 let token = ''
 
 describe('Auth', () => {
-  token = ''
   it('Clear DB', () =>
     new Promise((res) => User.destroy({ where: {}, force: true }).finally(res)))
 
@@ -176,7 +175,6 @@ describe('Auth', () => {
           .set('Cookie', `refreshToken=${token}`)
           .end(async (_, res) => {
             const { user, accessToken, refreshToken } = res.body
-
             toBeNot(validateAccessToken(accessToken), 'null')
             toBeNot(validateRefreshToken(refreshToken), 'null')
             haveOwnProperties(user, ['id', 'email', 'cities'])

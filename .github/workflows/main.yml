@@ -7,6 +7,21 @@ on:
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_weather
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     strategy:
       matrix:
         node-version: [15.x]
@@ -15,13 +30,14 @@ jobs:
      - name: Clone repo
        uses: actions/checkout@v2
 
-     - name: Extract branch name
-       shell: bash
-       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-       id: extract_branch
-       
-     - name: Check
-       run: echo ${{ steps.extract_branch.outputs.branch }}
-#      - name: Running tests for API
-#        run: npm run test
-      
+     - name: Install deps
+       run: npm i && npm i cross-env
+
+     - name: Running tests for API
+       run: npm run test
+
+    env:
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      DB_USER: postgres
+      DB_PASS: postgres
