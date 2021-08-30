@@ -15,7 +15,6 @@ class Auth {
       }
 
       const user = await AuthService.registration(email, password)
-      console.log('USER FROM DB >>>', user)
 
       res.cookie('refreshToken', user.refreshToken, {
         maxAge: 1 * 24 * 60 * 60 * 1e3,

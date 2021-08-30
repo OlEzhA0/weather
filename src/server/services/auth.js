@@ -20,7 +20,7 @@ class AuthService {
 
       return { ...tokens, user: { ...payload, cities } }
     } catch (err) {
-      throw APIError.server('Something went wrong')
+      throw APIError.server('Something went wrong....')
     }
   }
 
