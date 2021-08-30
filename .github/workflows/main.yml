@@ -43,3 +43,4 @@ jobs:
       DB_PASS: postgres
       ACCESS_TOKEN_SECRET: SECRET_ACCESS
       REFRESH_TOKEN_SECRET: SECRET_REFRESH
+      API_KEY: ${{ secrets.API_KEY }}
