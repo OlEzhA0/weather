@@ -45,6 +45,7 @@ describe('Auth', () => {
           .post('/api/auth/registration')
           .send({ email, password })
           .end((_, res) => {
+            console.log({ body: res.body, err: res.error })
             const { user, accessToken, refreshToken } = res.body
 
             toBeNot(validateAccessToken(accessToken), 'null')

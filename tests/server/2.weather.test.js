@@ -71,6 +71,8 @@ describe('Weather', () => {
         .get(`/api/weather/get-city/name/${cityName}`)
         .set('authorization', `Bearer ${token}`)
         .end((_, res) => {
+          console.log({ body: res.body, err: res.error })
+
           const { params } = res.body
           haveOwnProperties(params, ['id', 'name', 'sys', 'wind', 'main'])
           resolve()
