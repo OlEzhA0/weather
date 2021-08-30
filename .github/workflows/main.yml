@@ -30,11 +30,14 @@ jobs:
      - name: Clone repo
        uses: actions/checkout@v2
 
-     - name: Install deps
-       run: npm i && npm i cross-env
+    #  - name: Install deps
+    #    run: npm i && npm i cross-env
 
-     - name: Running tests for API
-       run: npm run test
+    #  - name: Running tests for API
+    #    run: npm run test
+
+     - name: Print ENV
+       run: echo ${{ env.POSTGRES_HOST }}
 
     env:
       POSTGRES_HOST: localhost
