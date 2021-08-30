@@ -46,6 +46,7 @@ describe('Auth', () => {
           .send({ email, password })
           .end((_, res) => {
             const { user, accessToken, refreshToken } = res.body
+            console.log('BODY >>', res.body)
 
             toBeNot(validateAccessToken(accessToken), 'null')
             toBeNot(validateRefreshToken(refreshToken), 'null')
