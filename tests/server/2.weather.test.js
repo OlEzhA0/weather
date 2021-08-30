@@ -17,22 +17,22 @@ let token = ''
 
 describe('Weather', () => {
   token = ''
-  // it('Login into account', () =>
-  //   new Promise((resolve) => {
-  //     chai
-  //       .request(server)
-  //       .post('/api/auth/login')
-  //       .send({ email, password })
-  //       .end((_, res) => {
-  //         const { user, accessToken, refreshToken } = res.body
-  //         toBeNot(validateAccessToken(accessToken), 'null')
-  //         toBeNot(validateRefreshToken(refreshToken), 'null')
-  //         haveOwnProperties(user, ['id', 'email', 'cities'])
-  //         equal(user.email, email)
-  //         token = accessToken
-  //         resolve()
-  //       })
-  //   }))
+  it('Login into account', () =>
+    new Promise((resolve) => {
+      chai
+        .request(server)
+        .post('/api/auth/login')
+        .send({ email, password })
+        .end((_, res) => {
+          const { user, accessToken, refreshToken } = res.body
+          toBeNot(validateAccessToken(accessToken), 'null')
+          toBeNot(validateRefreshToken(refreshToken), 'null')
+          haveOwnProperties(user, ['id', 'email', 'cities'])
+          equal(user.email, email)
+          token = accessToken
+          resolve()
+        })
+    }))
 
   // it('Should return unauthorized error when access token was not provided', () =>
   //   new Promise((resolve) => {
