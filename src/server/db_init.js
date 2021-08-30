@@ -11,6 +11,8 @@ const generateSequelize = () => {
       process.env.DB_USER,
       process.env.DB_PASS,
       {
+        port: process.env.POSTGRES_PORT,
+        host: process.env.POSTGRES_HOST,
         dialect: 'postgres',
         protocol: 'postgres',
       }
