@@ -11,7 +11,7 @@ const {
 } = require('./tokens')
 
 class AuthService {
-  async generateTokensAndSave(user) {
+  async generateTokensAndSave(user, cities) {
     try {
       const payload = { id: user.id, email: user.email }
       const tokens = generateTokens(payload)
@@ -20,7 +20,7 @@ class AuthService {
 
       return { ...tokens, user: { ...payload, cities } }
     } catch (err) {
-      throw APIError.server('Something went wrong')
+      throw APIError.server('Something went wrong....')
     }
   }
 

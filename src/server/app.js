@@ -49,14 +49,20 @@ app.use(errorHandler)
 // INIT
 ;(async () => {
   try {
-    await sequelize.authenticate()
-    await sequelize.sync()
+    if (process.env.NODE_ENV !== 'test') {
+      await sequelize.authenticate()
+      await sequelize.sync()
+    }
 
     app.listen(port, () => {
-      console.log(`> Listening on port: ${port}`)
-      console.log(`> Environment: ${process.env.NODE_ENV}`)
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(`> Listening on port: ${port}`)
+        console.log(`> Environment: ${process.env.NODE_ENV}`)
+      }
     })
   } catch (err) {
     console.log(err)
   }
 })()
+
+module.exports = app

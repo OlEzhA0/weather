@@ -3,6 +3,7 @@ require('dotenv').config()
 const APIError = require('../handlers/APIError')
 const AuthService = require('../services/auth')
 const TokenService = require('../services/tokens')
+const { Cities } = require('../models')
 
 class Auth {
   async registration(req, res, next) {
@@ -16,13 +17,13 @@ class Auth {
       const user = await AuthService.registration(email, password)
 
       res.cookie('refreshToken', user.refreshToken, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
+        maxAge: 1 * 24 * 60 * 60 * 1e3,
         httpOnly: true,
       })
 
       res.status(201).json(user)
     } catch (err) {
-      next(APIError.server(err.message))
+      next(APIError.forbidden(err.message))
     }
   }
 
@@ -37,17 +38,21 @@ class Auth {
       const user = await AuthService.login(email, password)
 
       res.cookie('refreshToken', user.refreshToken, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
+        maxAge: 1 * 24 * 60 * 60 * 1e3,
         httpOnly: true,
       })
 
       res.status(201).json(user)
     } catch (err) {
-      next(APIError.server(err.message))
+      next(APIError.userError(err.message))
     }
   }
 
-  async logout(req, res) {
+  async logout(req, res, next) {
+    if (!req.cookies || !req.cookies.refreshToken) {
+      return next(APIError.userError('Refresh token was not provided.'))
+    }
+
     try {
       const { refreshToken } = req.cookies
 
@@ -69,13 +74,24 @@ class Auth {
     }
 
     const user = await AuthService.refresh(refreshToken)
-
     res.cookie('refreshToken', user.refreshToken, {
-      maxAge: 1 * 24 * 60 * 60 * 1000,
+      maxAge: 1 * 24 * 60 * 60 * 1e3,
       httpOnly: true,
     })
 
     res.status(201).json(user)
+  }
+
+  async getUser(req, res, next) {
+    const { user } = req
+
+    try {
+      const { cities } = await Cities.findOne({ where: { userId: user.id } })
+
+      res.status(200).json({ user: { ...req.user, cities } })
+    } catch (err) {
+      next(APIError.unauthorized(err.message))
+    }
   }
 }
 
