@@ -8,7 +8,7 @@
     "dev": "nodemon ./src/server/app.js",
     "build": "webpack",
     "start": "node ./src/server/app.js",
-    "test": "cross-env NODE_ENV=test mocha ./tests/* --exit --timeout 60000"
+    "test": "cross-env NODE_ENV=test mocha ./tests/* --exit --timeout 120000"
   },
   "proxy": "http://localhost:3001",
   "author": "oleg",
