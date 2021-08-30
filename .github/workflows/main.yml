@@ -1,0 +1,27 @@
+name: Tests-CI
+
+on:
+  pull_request:
+    branches: main
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [15.x]
+
+    steps:
+     - name: Clone repo
+       uses: actions/checkout@v2
+
+     - name: Extract branch name
+       shell: bash
+       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+       id: extract_branch
+       
+     - name: Check
+       run: echo ${{ steps.extract_branch.outputs.branch }}
+#      - name: Running tests for API
+#        run: npm run test
+      

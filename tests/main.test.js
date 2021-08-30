@@ -1,8 +1,8 @@
 const sequelize = require('../src/server/db_init')
 
-describe('Should connect to test DB', () => {
+describe('DB connection', () => {
   it('should connect to the DB', async () => {
     await sequelize.authenticate()
-    await sequelize.sync()
+    await sequelize.sync({ force: true })
   })
 })
