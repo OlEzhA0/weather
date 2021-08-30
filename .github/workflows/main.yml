@@ -17,9 +17,13 @@ jobs:
      - name: Clone repo
        uses: actions/checkout@v2
 
-     - name: Use Node.js ${{ matrix.node-version }}
-       run: $ echo ${GITHUB_REF##*/}
-
-     - name: Running tests for API
-       run: npm run test
+     - name: Extract branch name
+       shell: bash
+       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+       id: extract_branch
+       
+     - name: Check
+       run: echo ${{ steps.extract_branch.outputs.branch }}
+#      - name: Running tests for API
+#        run: npm run test
       
